@@ -15,6 +15,11 @@ const router = createRouter({
           path: '/index',
           name: 'index',
           component: () => import('../views/pages/first/index.vue')
+        },
+        {
+          path: '/source',
+          name: 'source',
+          component: () => import('../views/pages/source/index.vue')
         }
       ],
       redirect: '/index'
