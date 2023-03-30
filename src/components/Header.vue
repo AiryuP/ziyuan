@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="headBox">
       <div @click="toHome">首页</div>
       <div @click="toSource">源码</div>
   </div>
@@ -28,7 +28,7 @@ const toSource = () =>{
 </script>
 
 <style lang="scss" scoped>
- .container {
-
+ .headBox {
+  
  }
 </style>
