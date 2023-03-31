@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="firstBox">
      ssssssssssss
      <div class="head"></div>
   </div>
@@ -11,16 +11,16 @@ const a = ref(0)
 </script>
 
 <style lang="scss" scoped>
- .container {
+ .firstBox {
     width: 100%;
-    // height: 100%;
+    height: 2000px;
 
    //  background-color: aqua;
    .head{
       margin-top: 120px;
       width: 100%;
       height: 70px;
-      background-color: #1268b9ab;
+      background-color: #1268b9;
    }
  }
 </style>

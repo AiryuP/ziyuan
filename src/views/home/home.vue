@@ -1,8 +1,10 @@
 <template>
   <div class="container">
+    <!-- <transition name="fade"> -->
     <div class="header" v-show="showHead">
         <Head></Head>
     </div>
+    <!-- </transition> -->
     <div class="bodyer" ref="scrollContainers">
 
         <div class="body_content"  >
@@ -32,8 +34,9 @@ const handleClick = () => {
 }
 const handleScroll = () => {
     console.log(scrollContainers.value.scrollTop)
-    if( scrollContainers.value.scrollTop == 90 ){
+    if( scrollContainers.value.scrollTop >= 140 ){
         // scrollContainers.value.style.marginTop = '90px'
+        console.log(showHead)
         showHead.value = true
     }else{
         showHead.value = false
@@ -59,6 +62,14 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
  .container {
     width: 100vw;
     height: 100vh;
@@ -68,8 +79,8 @@ onUnmounted(() => {
         height: 70px;
         width: 100%;
         position: absolute;
-        background-color: #1268b9ab;
-        z-index: 6;
+        background-color: #1268b9;
+        z-index: 60;
         top: 0px;
         left: 0px;
     }
@@ -78,9 +89,9 @@ onUnmounted(() => {
         // height: calc(100vh - 70px);
         height: 100vh;
         overflow: auto;
-        &::-webkit-scrollbar { width: 0 !important }
-        &{ -ms-overflow-style: none; }
-        &{ overflow: -moz-scrollbars-none; }
+        // &::-webkit-scrollbar { width: 0 !important }
+        // &{ -ms-overflow-style: none; }
+        // &{ overflow: -moz-scrollbars-none; }
         
         .body_content{
             width: 1200px;
@@ -98,4 +109,9 @@ onUnmounted(() => {
         height: calc(100vh - 70px);
     }
  }
+
+
+
+
+
 </style>
