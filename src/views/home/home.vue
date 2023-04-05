@@ -60,10 +60,7 @@ const handleClick = () => {
     console.log('点击事件')
 }
 const handleScroll = () => {
-    console.log(scrollContainers.value.scrollTop)
     if( scrollContainers.value.scrollTop >= 140 ){
-        // scrollContainers.value.style.marginTop = '90px'
-        console.log(showHead)
         showHead.value = true
     }else{
         showHead.value = false
@@ -75,15 +72,15 @@ const handleScroll = () => {
 }
 
 onMounted(() => {
-    // console.log(scrollContainers.value)
-    console.log(scrollContainers)
-    
-    // console.log(window)
-    scrollContainers.value.addEventListener("scroll", handleScroll);
+    if (scrollContainers.value) {
+        scrollContainers.value.addEventListener("scroll", handleScroll);
+    }
 })
 
 onUnmounted(() => {
-    // scrollContainers.value.removeEventListener("scroll", handleScroll);
+    if (scrollContainers.value) {
+        scrollContainers.value.removeEventListener("scroll", handleScroll);
+    }
 })
 
 </script>

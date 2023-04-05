@@ -27,23 +27,38 @@
          </div>
       </div>
       <div class="advert main boxCard">
-         <div class="advert_list" v-for="(item,index) in topAdvert" >{{ item.tit }}</div>
+         <div class="advert_list" v-for="(item,index) in topAdvert" :key="index" >{{ item.tit }}</div>
       </div>
       <div class="main boxCard advert">
          <div class="advert_list_img"><img src="" alt=""></div>
          <div class="advert_list_img"><img src="" alt=""></div>
       </div>
       <div class="main neir">
-         
-         这是网站具体内容区域
+         <div class="cardBox">
+            <revealBox v-for="(itemx,index) in newest" :reveal="itemx" ></revealBox>
+         </div>
       </div>
    </div>
 </template>
 
 <script setup lang="ts">
 import {ref} from "vue"
+import revealBox from '../../../components/revealBox.vue'
+
+
 const a = ref(0)
 const isLogin = ref(false)
+const newest = ref([
+   {imgUrl: 'https://down.hackzt.cn/201908/b07beef140.png',title: 'thinkphp5+layui php后台管理系统-集成第三方短信附件等应用',detailed: '云盘系统安装教程测试环境:PHP7.1 + MYSQL5.6 + Apache1. 上传源码到根目录2. 安装程序:  浏览器数据 http://localhost/CloudreveInstaller	localhost更换成你的网址3. 安装完毕 记住系统默认的账号密码温馨提示:如果默认的伪静态不行就替换一下的,没问题就不用换!伪静态配置RewriteEngine onRewriteCond ...',seeNum: '22',commentNum: '',isPraise: false,createTime: '2023-04-04'},
+   {imgUrl: 'https://down.hackzt.cn/201908/9defccde29.png',title: '三方四方聚合支付PHP网站源码-对接支付宝微信接口',detailed: '云盘系统安装教程测试环境:PHP7.1 + MYSQL5.6 + Apache1. 上传源码到根目录2. 安装程序:  浏览器数据 http://localhost/CloudreveInstaller	localhost更换成你的网址3. 安装完毕 记住系统默认的账号密码温馨提示:如果默认的伪静态不行就替换一下的,没问题就不用换!伪静态配置RewriteEngine onRewriteCond ...',seeNum: '3',commentNum: '',isPraise: false,createTime: '2023-04-04'},
+   {imgUrl: 'https://down.hackzt.cn/202001/79ed1a501a.png',title: 'PHP虚拟商品自动发货系统网站源码_支持商家入驻_对接支付接口',detailed: '云盘系统安装教程测试环境:PHP7.1 + MYSQL5.6 + Apache1. 上传源码到根目录2. 安装程序:  浏览器数据 http://localhost/CloudreveInstaller	localhost更换成你的网址3. 安装完毕 记住系统默认的账号密码温馨提示:如果默认的伪静态不行就替换一下的,没问题就不用换!伪静态配置RewriteEngine onRewriteCond ...',seeNum: '4',commentNum: '',isPraise: false,createTime: '2023-04-04'},
+   {imgUrl: 'https://down.hackzt.cn/201908/281f5667fb.png',title: 'emlog模板-蓝叶博客模板源码-清新大气模板，适合做博客和资源一体！亲测',detailed: '云盘系统安装教程测试环境:PHP7.1 + MYSQL5.6 + Apache1. 上传源码到根目录2. 安装程序:  浏览器数据 http://localhost/CloudreveInstaller	localhost更换成你的网址3. 安装完毕 记住系统默认的账号密码温馨提示:如果默认的伪静态不行就替换一下的,没问题就不用换!伪静态配置RewriteEngine onRewriteCond ...',seeNum: '45',commentNum: '',isPraise: false,createTime: '2023-04-04'},
+   {imgUrl: 'https://down.hackzt.cn/201908/8b345e8515.jpg',title: '杰奇V2.2仿磨铁中文网二次开发版原创小说系统完整版网站源码下载',detailed: '云盘系统安装教程测试环境:PHP7.1 + MYSQL5.6 + Apache1. 上传源码到根目录2. 安装程序:  浏览器数据 http://localhost/CloudreveInstaller	localhost更换成你的网址3. 安装完毕 记住系统默认的账号密码温馨提示:如果默认的伪静态不行就替换一下的,没问题就不用换!伪静态配置RewriteEngine onRewriteCond ...',seeNum: '1',commentNum: '',isPraise: false,createTime: '2023-04-04'},
+   {imgUrl: 'https://down.hackzt.cn/201908/6ee30b08ad.png',title: 'Cloudreve云盘系统源码，支持本地储存和对接各大对象储存,界面美观',detailed: '云盘系统安装教程测试环境:PHP7.1 + MYSQL5.6 + Apache1. 上传源码到根目录2. 安装程序:  浏览器数据 http://localhost/CloudreveInstaller	localhost更换成你的网址3. 安装完毕 记住系统默认的账号密码温馨提示:如果默认的伪静态不行就替换一下的,没问题就不用换!伪静态配置RewriteEngine onRewriteCond ...',seeNum: '4444',commentNum: '',isPraise: false,createTime: '2023-04-04'},
+   {imgUrl: 'https://down.hackzt.cn/201911/99871a09b5.png',title: 'Cloudreve云盘系统源码，支持本地储存和对接各大对象储存,界面美观',detailed: '云盘系统安装教程测试环境:PHP7.1 + MYSQL5.6 + Apache1. 上传源码到根目录2. 安装程序:  浏览器数据 http://localhost/CloudreveInstaller	localhost更换成你的网址3. 安装完毕 记住系统默认的账号密码温馨提示:如果默认的伪静态不行就替换一下的,没问题就不用换!伪静态配置RewriteEngine onRewriteCond ...',seeNum: '5222',commentNum: '',isPraise: false,createTime: '2023-04-04'},
+   {imgUrl: 'https://down.hackzt.cn/201909/f57b61aca1.png',title: 'Cloudreve云盘系统源码，支持本地储存和对接各大对象储存,界面美观',detailed: '云盘系统安装教程测试环境:PHP7.1 + MYSQL5.6 + Apache1. 上传源码到根目录2. 安装程序:  浏览器数据 http://localhost/CloudreveInstaller	localhost更换成你的网址3. 安装完毕 记住系统默认的账号密码温馨提示:如果默认的伪静态不行就替换一下的,没问题就不用换!伪静态配置RewriteEngine onRewriteCond ...',seeNum: '147',commentNum: '',isPraise: false,createTime: '2023-04-04'},
+   {imgUrl: 'https://down.hackzt.cn/201908/51b77fd6b0.png',title: 'Cloudreve云盘系统源码，支持本地储存和对接各大对象储存,界面美观',detailed: '云盘系统安装教程测试环境:PHP7.1 + MYSQL5.6 + Apache1. 上传源码到根目录2. 安装程序:  浏览器数据 http://localhost/CloudreveInstaller	localhost更换成你的网址3. 安装完毕 记住系统默认的账号密码温馨提示:如果默认的伪静态不行就替换一下的,没问题就不用换!伪静态配置RewriteEngine onRewriteCond ...',seeNum: '7',commentNum: '',isPraise: false,createTime: '2023-04-04'},
+])
 const topAdvert = ref([
    {id: '1',tit: '这是一条小广告',path: ''},
    {id: '1',tit: '这是一条小广告',path: ''},
@@ -190,8 +205,14 @@ const topAdvert = ref([
       }
    }
    .neir{
-      height: 1200px;
-      background-color: #339b9b;
+      
+      // background-color: #339b9b;
+
+      .cardBox{
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+      }
       
    }
  }
