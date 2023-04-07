@@ -2,7 +2,7 @@
   <div class="container">
     <!-- <transition name="fade"> -->
     <div class="header" v-show="showHead">
-        <Head></Head>
+        <Head ></Head>
     </div>
     <!-- </transition> -->
     <div class="bodyer" ref="scrollContainers">
@@ -55,7 +55,7 @@ import Head from '../../components/Header.vue'
 const showHead = ref(false)
 const scrollTop = ref(1)
 const scrollContainer = ref(null);
-const scrollContainers = ref(null);
+const scrollContainers:any = ref(null);
 const handleClick = () => {
     console.log('点击事件')
 }
