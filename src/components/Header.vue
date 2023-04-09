@@ -2,13 +2,13 @@
   <div class="headBox">
      <div class="main topBnn">
         <div class="menuBox">
-          <div class="menu" :class=" isActive == 'home' ? 'isActive' : '' " @click="changeMenu('home')" >首页</div>
-          <div class="menu" :class=" isActive == 'source' ? 'isActive' : '' " @click="changeMenu('source')" >网站源码</div>
+          <div class="menu" :class=" menuStore.isActive == 'home' ? 'isActive' : '' " @click="changeMenu('home')" >首页</div>
+          <div class="menu" :class=" menuStore.isActive == 'code' ? 'isActive' : '' " @click="changeMenu('code')" >网站源码</div>
           <!-- <div class="menu" :class=" isActive == '' ? '' : '' " @click="changeMenu('')" >插件模块</div> -->
-          <div class="menu" :class=" isActive == 'software' ? 'isActive' : '' " @click="changeMenu('software')" >软件工具</div>
+          <div class="menu" :class=" menuStore.isActive == 'software' ? 'isActive' : '' " @click="changeMenu('software')" >软件工具</div>
           <!-- <div class="menu" :class=" isActive == '' ? '' : '' " @click="changeMenu('')" >视频教程</div> -->
-          <div class="menu" :class=" isActive == 'wallpaper' ? 'isActive' : '' " @click="changeMenu('wallpaper')" >高清壁纸</div>
-          <div class="menu" :class=" isActive == 'composite' ? 'isActive' : '' " @click="changeMenu('composite')" >综合资源</div>
+          <div class="menu" :class=" menuStore.isActive == 'wallpaper' ? 'isActive' : '' " @click="changeMenu('wallpaper')" >高清壁纸</div>
+          <div class="menu" :class=" menuStore.isActive == 'source' ? 'isActive' : '' " @click="changeMenu('source')" >综合资源</div>
         </div>
         <div class="userInfo">
            <div class="user_info" v-show="isLogin" >
@@ -18,9 +18,9 @@
               <div class="userName">路西菲尔</div>
            </div>
            <div class="L_R"  v-show="!isLogin" >
-              <div class="login">登录{{ store.doubleCount }}</div>
+              <div class="login">登录</div>
               <div>|</div>
-              <div class="register">注册{{ store.count }}</div>
+              <div class="register">注册</div>
            </div>
         </div>
      </div>
@@ -31,12 +31,11 @@
 import {onMounted, ref} from "vue"
 import {useRouter} from 'vue-router'
 
-import {useCounterStore} from "../stores/counter" //将之前配置的pinia文件夹中的index.js文件引入
-let store=useCounterStore()
+import {useMenuStore} from "../stores/menu"
+let menuStore = useMenuStore()
 
 const isLogin = ref(false)
 const router = useRouter()
-let isActive = ref('home')
 
 const toHome = () => {
   router.push({
@@ -52,20 +51,34 @@ const toSource = () =>{
 
 
 const changeMenu = (name:string)=>{
-  console.log(name)
-  isActive.value = name
-  sessionStorage.setItem('menuActive',name)
-  store.count++
+  
+  menuStore.isActive = name
+  if( name == 'home' ){
+    router.push({
+      path: '/',
+    })
+  }else if(name == 'code'){
+    router.push({
+      path: '/code',
+    })
+  }else if(name == 'software'){
+    router.push({
+      path: '/software',
+    })
+  }else if(name == 'wallpaper'){
+    router.push({
+      path: '/wallpaper',
+    })
+  }else if(name == 'source'){
+    router.push({
+      path: '/source',
+    })
+  }
+  
 }
 
 onMounted(()=>{
-  console.log('xxxxxxx')
-  // let activeName = sessionStorage.getItem('menuActive')
-  // if( activeName == null  || activeName == undefined ){
-
-  // }else{
-  //   isActive = activeName
-  // }
+  
 })
 
 

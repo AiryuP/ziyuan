@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <!-- <transition name="fade"> -->
-    <div class="header" v-show="showHead">
+    <div class="header" v-show="menuStore.headShow">
         <Head ></Head>
     </div>
     <!-- </transition> -->
-    <div class="bodyer" ref="scrollContainers">
+    <div class="bodyer " :class="ishome ? 'isHome': ''" ref="scrollContainers">
 
         <div class="body_content"  >
             <RouterView ref="scrollContainer"></RouterView>
@@ -44,34 +44,96 @@
         </div>
 
     </div>
+
+    <div class="rivet">
+        <div class="rivetDom notice" v-show="false">
+            <i class="iconfont icon-gonggao1"></i>
+        </div>
+        <div class="rivetDom upto" v-show="showToup" @click="goTop">
+            <i class="iconfont icon-upto"></i>
+        </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { RouterView } from 'vue-router'
+import { ref, onMounted, onUnmounted, watchEffect, watch } from 'vue'
+import { RouterView,useRoute } from 'vue-router'
+import {useMenuStore} from "../../stores/menu"
+
 import Head from '../../components/Header.vue'
 
+
+let menuStore = useMenuStore()
+const router = useRoute()
+
 const showHead = ref(false)
-const scrollTop = ref(1)
 const scrollContainer = ref(null);
-const scrollContainers:any = ref(null);
+const scrollContainers:any = ref(null)
+let showToup = ref(false)
+let ishome = ref(true)
+let screenWidth = ref(document.body.clientWidth)
 const handleClick = () => {
     console.log('点击事件')
 }
 const handleScroll = () => {
-    if( scrollContainers.value.scrollTop >= 140 ){
-        showHead.value = true
+    //  判断是不是首页路由
+    const pathName = window.location.pathname
+    if( pathName == '/index'){
+        ishome.value = false
+        if( scrollContainers.value.scrollTop >= 140 ){
+            // showHead.value = true
+            menuStore.headShow = true
+            showToup.value=true
+        }else{
+            // showHead.value = false
+            menuStore.headShow = false
+            showToup.value=false
+        }
     }else{
-        showHead.value = false
+        if( scrollContainers.value.scrollTop >= 200 ){
+            showToup.value=true
+        }else{
+            showToup.value=false
+        }
     }
-    // console
-//   const scrollTopVal = scrollContainers.value.scrollTop;
-//   console.log("元素滚动距离:", scrollTopVal);
-//   scrollTop.value = scrollTopVal;
+
+    
 }
 
+const goTop = () =>{
+    let step = scrollContainers.value.scrollTop / 100;
+    let backTopInterval = setInterval(function() {
+        if (scrollContainers.value.scrollTop > 0) {
+            scrollContainers.value.scrollTop -= step;
+        } else {
+            clearInterval(backTopInterval);
+        }
+    }, 1);
+}
+
+watchEffect(()=>{
+    if( router.path == '/index' ){
+        ishome.value = false
+        menuStore.headShow = false
+    }else{
+        ishome.value = true
+        menuStore.headShow = true
+        if (scrollContainers.value) {
+            scrollContainers.value.scrollTop = 0;
+        }
+    }
+    
+})
+
+watch(screenWidth,(screenWidth, prevCount)=>{
+    console.log(screenWidth)
+    console.log(prevCount)
+})
+
+
 onMounted(() => {
+    
     if (scrollContainers.value) {
         scrollContainers.value.addEventListener("scroll", handleScroll);
     }
@@ -119,6 +181,7 @@ onUnmounted(() => {
         height: 100vh;
         overflow: auto;
         overflow-y: scroll;
+        
 
         &::-webkit-scrollbar { width: 0 !important }
         &::-webkit-scrollbar-thumb {
@@ -188,20 +251,44 @@ onUnmounted(() => {
             }
         }
     }
+    .isHome{
+        padding-top: 70PX;
+    }
     .highH{
         height: calc(100vh - 70px);
     }
+
+    .rivet{
+        position: fixed;
+        bottom: 150px;
+        right: 10px;
+        color: #fff;
+        .rivetDom{
+            width: 50px;
+            height: 50px;
+            margin-top: 6px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 4px;
+            i{
+                
+            font-size: 44px !important;
+            }
+            &:hover{
+                cursor: pointer;
+            }
+
+        }
+        .notice{
+            background-color: #1268b9;
+        }
+        .upto{
+            background-color: #07837d;
+        }
+    }
  }
  
-// .container::-webkit-scrollbar { width: 0 !important }
-// .container::-webkit-scrollbar-thumb {
-// background-color: orange;
-// }
-// .container{ -ms-overflow-style: none; }
-// .container{ overflow: -moz-scrollbars-none; }
-
-
-
+ 
 
 
 </style>

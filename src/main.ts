@@ -8,6 +8,8 @@ import router from './router'
 import './assets/css/reset.css'
 import './assets/css/public.css'
 
+import './assets/font/iconfont.css'
+
 import ElementPlus from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'

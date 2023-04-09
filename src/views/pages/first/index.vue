@@ -25,7 +25,7 @@
             </template>
          </headline>
          <div class="cardBox">
-            <revealBox v-for="(itemx,index) in newest" :reveal="itemx" ></revealBox>
+            <revealBox v-for="(itemx,index) in newest" :key="index" :reveal="itemx" @click="toDeatil(itemx)" ></revealBox>
          </div>
          
          <headline :left-title="'外链'" :icon-name="'outer'" ></headline>
@@ -36,10 +36,15 @@
 
 <script setup lang="ts">
 import {ref} from "vue"
+import { useRouter } from 'vue-router'
 import revealBox from '../../../components/revealBox.vue'
 import headline from '../../../components/headline.vue'
 
+
 import Head from '../../../components/Header.vue'
+
+
+const router=useRouter()
 
 
 const a = ref(0)
@@ -72,6 +77,18 @@ const topAdvert = ref([
    {id: '1',tit: '这是一条小广告',path: ''},
    {id: '1',tit: '这是一条小广告',path: ''},
 ])
+
+const toDeatil = (item:object)=>{
+   console.log(item)
+   router.push({
+      path: '/detail'
+   })
+
+}
+
+
+
+
 </script>
 
 <style lang="scss" scoped>
