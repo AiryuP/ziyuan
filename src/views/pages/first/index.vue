@@ -7,7 +7,7 @@
          </div>
       </div>
       <div class="advert main boxCard">
-         <div class="advert_list" v-for="(item,index) in topAdvert" :key="index" >{{ item.tit }}</div>
+         <div class="advert_list" :data-bgClolr="rgb()"  v-for="(item,index) in topAdvert" @mouseenter="enterAdvert($event)" @mouseleave="leaveAdvert($event)" :key="index" >{{ item.tit }}</div>
       </div>
       <div class="main boxCard advert">
          <div class="advert_list_img"><img src="" alt=""></div>
@@ -25,7 +25,7 @@
             </template>
          </headline>
          <div class="cardBox">
-            <revealBox v-for="(itemx,index) in newest" :key="index" :reveal="itemx" @click="toDeatil(itemx)" ></revealBox>
+            <revealBox v-for="(itemx,index) in newest" :key="index" :reveal="itemx"  @click="toDeatil(itemx)" ></revealBox>
          </div>
          
          <headline :left-title="'外链'" :icon-name="'outer'" ></headline>
@@ -83,7 +83,24 @@ const toDeatil = (item:object)=>{
    router.push({
       path: '/detail'
    })
+}
 
+const enterAdvert = (e:any)=>{
+   // console.log(e.target.style.border)
+   // console.log(e.target.dataset)
+   let bg = e.target.dataset.bgclolr
+   e.target.style.backgroundColor = bg;
+}
+const leaveAdvert = (e:any)=>{
+   console.log(e.target)
+   e.target.style.backgroundColor = '';
+}
+
+const rgb = ()=>{//rgb颜色随机
+  const r = Math.floor(Math.random()*256);
+  const g = Math.floor(Math.random()*256);
+  const b = Math.floor(Math.random()*256);
+  return `rgb(${r},${g},${b})`;
 }
 
 
