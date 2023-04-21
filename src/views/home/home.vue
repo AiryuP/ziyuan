@@ -74,7 +74,7 @@ let showToup = ref(false)
 let ishome = ref(true)
 let screenWidth = ref(document.body.clientWidth)
 const handleClick = () => {
-    console.log('点击事件')
+    
 }
 const handleScroll = () => {
     //  判断是不是首页路由
@@ -97,7 +97,6 @@ const handleScroll = () => {
             showToup.value=false
         }
     }
-
     
 }
 
@@ -127,8 +126,7 @@ watchEffect(()=>{
 })
 
 watch(screenWidth,(screenWidth, prevCount)=>{
-    console.log(screenWidth)
-    console.log(prevCount)
+    
 })
 
 

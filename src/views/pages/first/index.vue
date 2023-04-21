@@ -79,20 +79,19 @@ const topAdvert = ref([
 ])
 
 const toDeatil = (item:object)=>{
-   console.log(item)
+   
    router.push({
       path: '/detail'
    })
 }
 
 const enterAdvert = (e:any)=>{
-   // console.log(e.target.style.border)
-   // console.log(e.target.dataset)
+   
    let bg = e.target.dataset.bgclolr
    e.target.style.backgroundColor = bg;
 }
 const leaveAdvert = (e:any)=>{
-   console.log(e.target)
+   
    e.target.style.backgroundColor = '';
 }
 
@@ -101,6 +100,10 @@ const rgb = ()=>{//rgb颜色随机
   const g = Math.floor(Math.random()*256);
   const b = Math.floor(Math.random()*256);
   return `rgb(${r},${g},${b})`;
+}
+
+const changeBorder = () =>{
+   let advArr = document.getElementsByClassName('advert_list')
 }
 
 

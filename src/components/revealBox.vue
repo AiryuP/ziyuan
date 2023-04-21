@@ -1,9 +1,9 @@
 <template>
     <div class="revealBox">
         <div class="revealImg" @mouseenter.capture="showIcon" @mouseout.capture="noShowIcon" >
-            <img :src="reveal.imgUrl" alt="">
+            <img src="" class="lazyImg" :data-src="reveal.imgUrl" :datasrc="reveal.imgUrl" alt="">
             <!-- v-show="isShowIcon" -->
-            <div class="img_icon" ref="img_icon" >
+            <div class="img_icon"  ref="img_icon" >
                 <el-icon>
                    <Mouse />
                 </el-icon>
@@ -26,7 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue"
+import {onMounted, ref} from "vue"
+const html = document.documentElement;
 const props = defineProps({
     reveal: {
       type: Object,
@@ -38,17 +39,39 @@ const isShowIcon = ref(false)
 const img_icon = ref(null)
 
 const showIcon = ()=>{
-    // isShowIcon.value = true
     if(img_icon.value){
-        img_icon.value.style.opacity = 1;
+        // img_icon.value.style.opacity = 1;
     }
 }
 const noShowIcon = ()=>{
-    // isShowIcon.value = false
     if(img_icon.value){
-        img_icon.value.style.opacity = 0;
+        // img_icon.value.style.opacity = 0;
     }
 }
+const lazyload = () => {
+    // 获取所有的图片
+    // let imgs = document.querySelectorAll("img");
+    // let imgs = document.getElementsByClassName('lazy')
+    // let imgs = document.querySelectorAll("img[class=lazyImg]")
+    let imgs = document.querySelectorAll('img');
+    for (let i = 0; i < imgs.length; i++) {
+        //当前图片距离顶部高度 <= 当前视图 进行src替换
+        console.log(imgs[i].getAttribute("datasrc"))
+        if( imgs[i].getAttribute("datasrc") == "null" ){
+
+        }else{
+            if (imgs[i].offsetTop <= html.clientHeight + html.scrollTop) {
+                setTimeout(() => {
+                    imgs[i].src = imgs[i].getAttribute("datasrc") || imgs[i].src;
+                }, 300);
+            }
+        }
+    }
+}
+
+onMounted(()=>{
+    lazyload();
+})
 
 
 </script>
