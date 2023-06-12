@@ -56,7 +56,7 @@ const lazyload = () => {
     let imgs = document.querySelectorAll('img');
     for (let i = 0; i < imgs.length; i++) {
         //当前图片距离顶部高度 <= 当前视图 进行src替换
-        console.log(imgs[i].getAttribute("datasrc"))
+        // console.log(imgs[i].getAttribute("datasrc"))
         if( imgs[i].getAttribute("datasrc") == "null" ){
 
         }else{

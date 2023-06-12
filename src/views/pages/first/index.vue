@@ -7,11 +7,11 @@
          </div>
       </div>
       <div class="advert main boxCard">
-         <div class="advert_list" :data-bgClolr="rgb()"  v-for="(item,index) in topAdvert" @mouseenter="enterAdvert($event)" @mouseleave="leaveAdvert($event)" :key="index" >{{ item.tit }}</div>
+         <div class="advert_list" :data-bgClolr="rgb()" v-for="(item,index) in topAdvert" @mouseenter="enterAdvert($event)" @mouseleave="leaveAdvert($event)" :key="index" >{{ item.tit }}</div>
       </div>
       <div class="main boxCard advert">
-         <div class="advert_list_img"><img src="" alt=""></div>
-         <div class="advert_list_img"><img src="" alt=""></div>
+         <div class="advert_list_img"><img src="" alt=""><div class="adTip">AD</div></div>
+         <div class="advert_list_img"><img src="" alt=""><div class="adTip">AD</div></div>
       </div>
       <div class="main neir">
          <headline :left-title="'最新发布'" :icon-name="'new'" >
@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue"
+import {onMounted, ref} from "vue"
 import { useRouter } from 'vue-router'
 import revealBox from '../../../components/revealBox.vue'
 import headline from '../../../components/headline.vue'
@@ -89,22 +89,39 @@ const enterAdvert = (e:any)=>{
    
    let bg = e.target.dataset.bgclolr
    e.target.style.backgroundColor = bg;
+   e.target.style.color = '#fff'
 }
 const leaveAdvert = (e:any)=>{
    
    e.target.style.backgroundColor = '';
+   let icolor = e.target.getAttribute('data-bgClolr')
+   e.target.style.color = icolor
 }
 
 const rgb = ()=>{//rgb颜色随机
   const r = Math.floor(Math.random()*256);
   const g = Math.floor(Math.random()*256);
   const b = Math.floor(Math.random()*256);
-  return `rgb(${r},${g},${b})`;
+  return `rgb(${r},${g},${b},0.9)`;
 }
 
 const changeBorder = () =>{
    let advArr = document.getElementsByClassName('advert_list')
 }
+
+
+const getColor = ()=>{
+   let docs = document.querySelectorAll('.advert_list')
+   for( let i = 0;i<docs.length;i++ ){
+      let icolor = docs[i].getAttribute('data-bgClolr')
+      docs[i].style.color = icolor;
+      docs[i].style.borderColor=icolor
+   }
+}
+
+onMounted(()=>{
+   getColor();
+})
 
 
 
@@ -144,9 +161,23 @@ const changeBorder = () =>{
       .advert_list_img{
          height: 80px;
          width: 590px;
+         position: relative;
          img{
             width: 100%;
             height: 100%;
+         }
+         .adTip{
+            position: absolute;
+            width: 24px;
+            height: 16px;
+            text-align: center;
+            border-radius: 3px;
+            right: 3px;
+            bottom: 3px;
+            font-size: 8px;
+            color: #fff;
+            background-color: #00000050;
+
          }
       }
    }
