@@ -113,9 +113,10 @@ const changeBorder = () =>{
 const getColor = ()=>{
    let docs = document.querySelectorAll('.advert_list')
    for( let i = 0;i<docs.length;i++ ){
-      let icolor = docs[i].getAttribute('data-bgClolr')
-      docs[i].style.color = icolor;
-      docs[i].style.borderColor=icolor
+      let el = docs[i] as HTMLElement 
+      let icolor = el.getAttribute('data-bgClolr')
+      el.style.color = icolor ?? '';
+      el.style.borderColor=icolor ?? '';
    }
 }
 
